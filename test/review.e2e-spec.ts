@@ -18,11 +18,11 @@ const testDto: CreateReviewDto = {
 };
 
 const loginDto: AuthDto = {
-  email: 'qwe@mail.com',
-  password: 'qwerty',
+  email: 'yo@yo.co',
+  password: 'yo',
 };
 
-describe('AppController (e2e)', () => {
+describe('ReviewController (e2e)', () => {
   let app: INestApplication;
   let createdId: string;
   let token: string;
@@ -48,6 +48,7 @@ describe('AppController (e2e)', () => {
       .send(testDto)
       .expect(201)
       .then(({ body }: request.Response) => {
+        console.log('YOOOOOO', body._id);
         createdId = body._id;
         expect(createdId).toBeDefined();
       });
@@ -58,7 +59,6 @@ describe('AppController (e2e)', () => {
       .get('/review/byProduct/' + productId)
       .expect(200)
       .then(({ body }: request.Response) => {
-        console.log('HHHHHEY', body);
         expect(body.length > 0).toBe(true);
       });
   });

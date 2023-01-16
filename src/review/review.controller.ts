@@ -20,7 +20,6 @@ import { REVIEW_NOT_FOUND } from './review.constants';
 export class ReviewController {
   constructor(private reviewService: ReviewService) {}
 
-  @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
   @Post('create')
   async create(@Body() dto: CreateReviewDto) {
@@ -32,9 +31,11 @@ export class ReviewController {
     return await this.reviewService.findByProductId(productId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const deleted = await this.reviewService.delete(id);
+    console.log('HHHEEEEYYY', deleted);
 
     if (!deleted) {
       throw new HttpException(REVIEW_NOT_FOUND, HttpStatus.NOT_FOUND);
